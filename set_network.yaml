@@ -1,0 +1,58 @@
+- hosts: all
+  remote_user: root
+  tasks:
+    - authorized_key:
+      user: root
+      key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+      - name: update cloug.cfg
+      lineinfile:
+        path: /etc/cloud/cloud.cfg
+        regexp: '^preserve_hostname'
+        line: 'preserve_hostname: true'
+    - name: disable cloud network 
+      copy:
+        content: 'network: {config: disabled}'
+        dest: /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+        force: yes
+    - name: delete file 50-cloud-init.yaml if it exists
+      file:
+        path: /etc/netplan/50-cloud-init.yaml
+        state: absent
+    - name: Copy network config file
+      copy:
+        src: guardicore_interfaces_ens160.yaml
+        dest: /etc/netplan/guardicore_interfaces_ens160.yaml
+        owner: root
+        mode: 744
+        force: no
+    - name: Set Hostname
+      hostname:
+        name: "{{ server_hostname }}"
+    - name: update hostname in hosts
+      lineinfile:
+        path: /etc/hosts
+        regexp: '^127\.0\.1\.1'
+        line: 127.0.1.1 "{{ server_hostname }}"
+    - name: set ens160 ip
+      replace:
+        path: /etc/netplan/guardicore_interfaces_ens160.yaml
+        regexp: 'ip1'
+        replace: "{{ server_ip_1 }}"
+    - name: set ens192 ip
+      replace:
+        path: /etc/netplan/guardicore_interfaces_ens160.yaml
+        regexp: 'ip2'
+        replace: "{{ server_ip_2 }}"
+    - name: set ens160 subnet
+      replace:
+        path: /etc/netplan/guardicore_interfaces_ens160.yaml
+        regexp: 'subnet1'
+        replace: "{{ subnet_1 }}"
+    - name: set ens192 subnet
+      replace:
+        path: /etc/netplan/guardicore_interfaces_ens160.yaml
+        regexp: 'subnet2'
+        replace: "{{ subnet_2 }}"
+    - name: apply netplan
+      command: netplan apply
+        
