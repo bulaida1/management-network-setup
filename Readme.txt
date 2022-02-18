@@ -1,4 +1,4 @@
-Centra version: 39.2.4
+Centra version: 39.2.4 test
 
 This is Ansible code to setup network prerequisites for management nodes deployment
 
