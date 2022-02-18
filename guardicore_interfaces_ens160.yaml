@@ -1,0 +1,14 @@
+network:
+  ethernets:
+    ens160:
+      addresses: [ip1/subnet1]
+      dhcp4: 'no'
+      dhcp6: 'no'
+      gateway4: 10.225.32.1
+      nameservers:
+        addresses: [10.1.7.253, 10.225.6.214]
+    ens192:
+      addresses: [ip2/subnet2]
+      dhcp4: 'no'
+      dhcp6: 'no'
+  version: 2
