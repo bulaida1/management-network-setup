@@ -4,9 +4,9 @@ network:
       addresses: [ip1/subnet1]
       dhcp4: 'no'
       dhcp6: 'no'
-      gateway4: 10.225.32.1
+      gateway4: x.x.x.x
       nameservers:
-        addresses: [10.1.7.253, 10.225.6.214]
+        addresses: [x.x.x.x, x.x.x.x]
     ens192:
       addresses: [ip2/subnet2]
       dhcp4: 'no'
