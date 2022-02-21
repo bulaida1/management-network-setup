@@ -14,4 +14,4 @@ ip r add default via x.x.x.x
 4. run from control node:
 ansible-playbook set_network.yaml -i hosts -u "$USER" -k
 
-5. restart all servers
+5. restart all servers 123
