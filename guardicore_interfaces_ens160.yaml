@@ -7,8 +7,4 @@ network:
       gateway4: x.x.x.x
       nameservers:
         addresses: [x.x.x.x, x.x.x.x]
-    ens192:
-      addresses: [ip2/subnet2]
-      dhcp4: 'no'
-      dhcp6: 'no'
   version: 2
